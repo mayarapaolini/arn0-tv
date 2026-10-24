@@ -81,7 +81,11 @@ It reads three further keys (`db/appfw/startup_appid`, `db/appfw/booting_appid_b
 `auto_start` was already `1` and remains `1`. The Home-button behavior was tested; the helper does
 not itself configure power-on behavior. Do not infer that setting `auto_start` to `1` is sufficient
 for startup on another model or firmware. If the saved value is `0`, stop before applying and
-research that configuration separately.
+research that configuration separately. On another TV, an independent query observed
+`startup_appid` and `booting_appid_backup` changing as a platform side effect when the
+`main` operation changed, despite `apply` not writing those keys directly. Do not assume
+those values stay at the baseline: query all keys again after apply and account for the
+actual values in the recovery plan. See the [cross-device validation checklist](native-home-validation.md).
 
 Safety properties worth knowing before you trust it:
 
